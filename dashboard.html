@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .avatar {
+      background: black;
+      color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .info {
+      margin-left: 15px;
+    }
+
+    .logout {
+      padding: 10px 20px;
+      background: #6c757d;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    button {
+      background: #222;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+
+    .log {
+      margin-top: 10px;
+      padding-left: 15px;
+    }
+
+    .log li {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div style="display: flex; align-items: center;">
+      <div class="avatar" id="initials">MDD</div>
+      <div class="info">
+        <h3 id="userName">User</h3>
+        <p id="userDetails">Admin | ID: </p>
+      </div>
+    </div>
+    <div>
+      <p id="currentTime"></p>
+      <button class="logout" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>System Navigation</h3>
+    <button>Logbook</button>
+    <button>Admin Panel</button>
+  </div>
+
+  <div class="card">
+    <h3>Recent Activity</h3>
+    <ul class="log" id="activityLog"></ul>
+  </div>
+
+  <script>
+    // Check login
+    const userID = localStorage.getItem("userID");
+    const userName = localStorage.getItem("userName");
+    const loginTime = localStorage.getItem("loginTime");
+
+    if (!userID) {
+      window.location.href = "login.html";
+    }
+
+    // Display info
+    document.getElementById("userName").textContent = userName;
+    document.getElementById("userDetails").textContent = `Admin | ID: ${userID}`;
+    document.getElementById("currentTime").textContent = new Date().toLocaleString();
+
+    // Logs
+    const activityLog = document.getElementById("activityLog");
+    activityLog.innerHTML = `
+      <li><strong>User logged in</strong> by ${userID} on ${loginTime}</li>
+      <li><strong>User logged out</strong> by ${userID} on 30/07/2025 12:29:05</li>
+      <li><strong>User logged in</strong> by ${userID} on 30/07/2025 12:28:56</li>
+    `;
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = "login.html";
+    }
+  </script>
+
+</body>
+</html>
